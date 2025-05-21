@@ -1,4 +1,4 @@
-# 理解pthread_create的第三个参数和函数指针
+### 1 理解pthread_create的第三个参数和函数指针
 
 `pthread_create`是POSIX线程库中用于创建线程的函数，其原型如下：
 
@@ -7,11 +7,11 @@ int pthread_create(pthread_t *thread, const pthread_attr_t *attr,
                    void *(*start_routine) (void *), void *arg);
 ```
 
-## 第三个参数 - 函数指针
+#### 第三个参数 - 函数指针
 
 第三个参数 `void *(*start_routine) (void *)` 是一个函数指针，它指向新线程将要执行的函数。
 
-### 分解理解这个函数指针
+#### 分解理解这个函数指针
 
 1. `void *(*start_routine) (void *)` 可以分解为：
    - `start_routine` 是一个指针
@@ -25,7 +25,7 @@ int pthread_create(pthread_t *thread, const pthread_attr_t *attr,
    int pthread_create(..., thread_func_t start_routine, ...);
    ```
 
-### 函数指针的基本概念
+#### 函数指针的基本概念
 
 函数指针是指向函数的指针变量，它存储的是函数的入口地址。通过函数指针，我们可以间接调用函数。
 
@@ -39,7 +39,7 @@ int pthread_create(pthread_t *thread, const pthread_attr_t *attr,
 int (*func_ptr)(int, int);  // 指向接受两个int参数并返回int的函数
 ```
 
-## 如何使用
+#### 如何使用
 
 1. 定义一个符合要求的线程函数：
    ```c
@@ -57,7 +57,7 @@ int (*func_ptr)(int, int);  // 指向接受两个int参数并返回int的函数
 
    这里 `my_thread_func` 会自动转换为函数指针。
 
-## 为什么使用函数指针
+#### 为什么使用函数指针
 
 1. **灵活性**：可以在运行时决定线程执行哪个函数
 2. **回调机制**：允许库函数调用用户提供的函数

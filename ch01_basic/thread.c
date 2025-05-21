@@ -1,21 +1,22 @@
 #include <pthread.h>
-#include <unistd.h>
+#include <unistd.h> //man 3 sleep
 #include <stdio.h>
 
 void* myturn(void* args)
 {
-    while(1)
+    for(int i=0; i<20; i++)
     {
        sleep(1);
-       printf("My Turn\n");
+       printf("My %d Turn \n",i);
     }
+    return NULL;
 }
 void yourturn()
 {
-    while(1)
+    for(int i=0; i<5; i++)
     {
-       sleep(2);
-       printf("Your Turn\n");
+       sleep(1);
+       printf("Your %d Turn \n",i);
     }
 }
 
@@ -34,6 +35,8 @@ int main()
     pthread_create(&thread,NULL,myturn,NULL);
  
     yourturn();
+
+    pthread_join(thread,NULL);
 
     return 0;
 }
